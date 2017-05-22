@@ -18,6 +18,10 @@ body, html, section, main, div, aside {
   justify-content: center;
 }
 
+.new-ideas-entry {
+  width: 50%;
+}
+
 h1 {
   color: #00A79D;
 }
@@ -26,14 +30,15 @@ h1 span, .idea-heading, #quality-rating {
   color: #6D6E71;
 }
 
-#title-input {
+input[type="text"]{
+  border: 2px solid #b7b9bb;
   margin-bottom: 15px;
   width: 100%;
+  padding: 5px;
 }
 
-#body-input {
-  margin-bottom: 15px;
-  width: 100%;
+input[type="text"]::placeholder {
+  color: #939598;
 }
 
 #save-button {
@@ -42,10 +47,16 @@ h1 span, .idea-heading, #quality-rating {
   color: #FFFFFF;
   margin-bottom: 20px;
   width: 100%;
+  cursor: pointer;
+  padding: 5px;
 }
 
 #save-button:hover {
   background-color: #045E55;
+}
+
+#save-button:focus {
+  outline: 0;
 }
 
 .idea-storage {
@@ -57,10 +68,14 @@ h1 span, .idea-heading, #quality-rating {
   justify-content: flex-start;
 }
 
+.idea-cards {
+  width: 50%;
+}
+
 #search-input {
   margin-bottom: 25px;
   margin-top: 25px;
-  width: 52%;
+  width: 50%;
 }
 
 .idea-heading {
