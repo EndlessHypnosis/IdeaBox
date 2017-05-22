@@ -26,7 +26,7 @@ h1 {
   color: #00A79D;
 }
 
-h1 span, .idea-heading, #quality-rating {
+h1 span, .idea-heading, .quality-rating {
   color: #6D6E71;
 }
 
@@ -96,15 +96,15 @@ input[type="text"]::placeholder {
   font-family: 'Open Sans', sans-serif;
 }
 
-#upvote-icon {
+.upvote-icon {
   margin-right: 15px;
 }
 
-#downvote-icon {
+.downvote-icon {
   margin-right: 15px;
 }
 
-#quality-classification {
+.quality-classification {
   font-family: 'Open Sans', sans-serif;
 }
 
