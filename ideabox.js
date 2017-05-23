@@ -69,12 +69,16 @@ $( document ).ready(function() {
 
 saveButton.on('click', saveIdea);
 
+
 //Constructor function (blueprint)
 function Idea (title, body) {
   this.title = title;
   this.body = body;
   this.id = Math.floor(Math.random() * 999999);
-  this.quality = 1; //default to swill
+  this.quality = 1;
+  //default to swill = 1
+  //plausible = 2
+  //genius = 3
 }
 
 function saveIdea() {
@@ -92,6 +96,7 @@ function saveIdea() {
 
 function ideaBuilder(ideaToBuild) {
   var newArticle = document.createElement('article');
+  newArticle.id = ideaToBuild.id;
   newArticle.innerHTML = `<h2 class="idea-heading"> ${ideaToBuild.title} </h2>
   <img class="idea-delete-icon" src="FEE-ideabox-icon-assets/delete.svg" alt="Delete idea icon" height="20px" width="20px">
   <p class="idea-body"> ${ideaToBuild.body} </p>
@@ -99,5 +104,20 @@ function ideaBuilder(ideaToBuild) {
   <img class="downvote-icon" src="FEE-ideabox-icon-assets/downvote.svg" alt="Downvote idea icon" height="20px" width="20px">
   <p class="quality-rating">quality: <span class="quality-classification"> ${ideaToBuild.quality} </span></p>
   <hr>`;
+
+  newArticle.querySelector('.upvote-icon').addEventListener('click', function() {
+    upVote(newArticle.querySelector('.upvote-icon'));
+  });
   return newArticle;
+}
+
+function upVote(button) {
+  var articleId = button.closest('article').id;
+  var filteredArray = ideasArray.filter(function(idea){
+    console.log(idea.id, articleId);
+    return idea.id == articleId;
+  })
+  filteredArray[0].quality++;
+  console.log(filteredArray);
+
 }

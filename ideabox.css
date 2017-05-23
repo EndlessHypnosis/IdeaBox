@@ -89,6 +89,11 @@ input[type="text"]::placeholder {
   display: inline-block;
   float: right;
   margin-top: 15px;
+  cursor: pointer;
+}
+
+.idea-delete-icon:hover {
+  content: url('FEE-ideabox-icon-assets/delete-hover.svg')
 }
 
 .idea-body {
@@ -99,10 +104,20 @@ input[type="text"]::placeholder {
 
 .upvote-icon {
   margin-right: 15px;
+  cursor: pointer;
+}
+
+.upvote-icon:hover {
+  content: url('FEE-ideabox-icon-assets/upvote-hover.svg')
 }
 
 .downvote-icon {
   margin-right: 15px;
+  cursor: pointer;
+}
+
+.downvote-icon:hover {
+  content: url('FEE-ideabox-icon-assets/downvote-hover.svg')
 }
 
 .quality-classification {
