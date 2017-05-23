@@ -24,6 +24,7 @@ body, html, section, main, div, aside {
 
 h1 {
   color: #00A79D;
+  margin-bottom: 50px;
 }
 
 h1 span, .idea-heading, .quality-rating {
