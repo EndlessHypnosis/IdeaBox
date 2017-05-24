@@ -81,12 +81,16 @@ function Idea (title, body) {
   //genius = 3
 }
 
+function storeArray() {
+  var ideasJson = JSON.stringify(ideasArray);
+  localStorage.setItem('ideas', ideasJson);
+}
+
 function saveIdea() {
   var newIdea = new Idea(titleInput.val(), bodyInput.val());
   ideasArray.push(newIdea);
   //Save new array items to local storage
-  var ideasJson = JSON.stringify(ideasArray);
-  localStorage.setItem('ideas', ideasJson);
+  storeArray();
 
   var ideaToPrepend = ideaBuilder(newIdea);
   ideaOutput.prepend(ideaToPrepend);
@@ -111,13 +115,44 @@ function ideaBuilder(ideaToBuild) {
   return newArticle;
 }
 
-function upVote(button) {
-  var articleId = button.closest('article').id;
-  var filteredArray = ideasArray.filter(function(idea){
-    console.log(idea.id, articleId);
-    return idea.id == articleId;
+function upVote(upVoteButton) {
+  console.log("start", ideasArray);
+  var articleId = upVoteButton.closest('article').id;
+  ideasArray.forEach(function(idea) {
+    if (idea.id == articleId) {
+      if (idea.quality < 3) {
+        idea.quality++;
+      } else {
+        heading.notify('Your idea is already genius!');
+      }
+    }
   })
-  filteredArray[0].quality++;
-  console.log(filteredArray);
-
+  console.log("end", ideasArray);
+  storeArray();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function search(button) {
+  // var articleId = button.closest('article').id;
+//   var filteredArray = ideasArray.filter(function(idea){
+//     console.log(idea.id, articleId);
+//     return idea.id == articleId;
+//   })
+//   filteredArray[0].quality++;
+//   console.log(filteredArray);
+//
+// }
