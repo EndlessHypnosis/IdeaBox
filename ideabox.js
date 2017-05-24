@@ -65,17 +65,14 @@ $( document ).ready(function() {
     });
 });
 
-
-
 saveButton.on('click', saveIdea);
-
 
 //Constructor function (blueprint)
 function Idea (title, body) {
   this.title = title;
   this.body = body;
   this.id = Math.floor(Math.random() * 999999);
-  this.quality = 1;
+  this.quality = "Swill";
   //default to swill = 1
   //plausible = 2
   //genius = 3
@@ -95,6 +92,8 @@ function saveIdea() {
   var ideaToPrepend = ideaBuilder(newIdea);
   ideaOutput.prepend(ideaToPrepend);
 
+  titleInput.val('');
+  bodyInput.val('');
   console.log(localStorage);
 }
 
@@ -112,25 +111,66 @@ function ideaBuilder(ideaToBuild) {
   newArticle.querySelector('.upvote-icon').addEventListener('click', function() {
     upVote(newArticle.querySelector('.upvote-icon'));
   });
+
+  newArticle.querySelector('.downvote-icon').addEventListener('click', function() {
+    downVote(newArticle.querySelector('.downvote-icon'));
+  })
+
+  newArticle.querySelector('.idea-delete-icon').addEventListener('click', function() {
+    deleteButton(newArticle.querySelector('.idea-delete-icon'));
+  })
+
   return newArticle;
 }
 
 function upVote(upVoteButton) {
-  console.log("start", ideasArray);
   var articleId = upVoteButton.closest('article').id;
+  var newQuality;
   ideasArray.forEach(function(idea) {
     if (idea.id == articleId) {
-      if (idea.quality < 3) {
-        idea.quality++;
+      if (idea.quality ===  "Swill") {
+        idea.quality = "Plausible";
+        newQuality = idea.quality;
+      } else if (idea.quality === "Plausible") {
+        idea.quality = "Genius"
+        newQuality = idea.quality;
       } else {
         heading.notify('Your idea is already genius!');
       }
     }
   })
-  console.log("end", ideasArray);
+  storeArray();
+  $(upVoteButton).siblings('span').text(newQuality);//FIX ME!!!!!!!
+}
+
+function downVote(downVoteButton) {
+  var articleId = downVoteButton.closest('article').id;
+  ideasArray.forEach(function(idea) {
+    if (idea.id == articleId) {
+      if (idea.quality === "Genius") {
+        idea.quality = "Plausible";
+      } else if (idea.quality === "Plausible") {
+        idea.quality = "Swill";
+      } else {
+        heading.notify('Your idea is swill, work on it and it may become genius quiality!');
+      }
+    }
+  })
+  console.log("END", ideasArray);
   storeArray();
 }
 
+function deleteButton(deleteButton) {
+  var articleId = deleteButton.closest('article').id;
+  ideasArray.forEach(function(idea, index) {
+    if (idea.id == articleId) {
+      var article = document.getElementById(articleId);
+      $(article).remove();
+      ideasArray.splice(index, 1);
+    }
+  })
+  storeArray();
+}
 
 
 
