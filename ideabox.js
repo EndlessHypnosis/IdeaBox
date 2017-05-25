@@ -6,13 +6,10 @@ var ideaOutput = $('#idea-output');
 var heading = $('#heading1');
 var searchField = $('#search-input');
 
-
 //Create new array for ideas storing
 var ideasArray = [];
-
 // Initialize
 $(document).ready(function() {
-
   // pull array out of local storage, populate DOM
   var ideasJson = localStorage.getItem('ideas');
   if (ideasJson) {
@@ -155,9 +152,7 @@ function ideaBuilder(ideaToBuild) {
   // finally, we want this function to return this <article> tag we made
   return newArticle;
 }
-
-
-// when the user hits enter or selects off the input this is ran
+  // when the user hits enter or selects off the input this is ran
 function blurMe(readOnly, editable, target) {
   // toggle the elemnts display and make sure to copy the value back from the input
   var newValue = $(editable).val();

@@ -35,6 +35,7 @@ h1 span, .idea-heading, .quality-rating {
 input[type="text"]{
   border: 2px solid #b7b9bb;
   margin-bottom: 15px;
+  outline:none;
   padding: 5px;
   width: 100%;
 }
@@ -78,6 +79,7 @@ input[type="text"]::placeholder {
 #search-input {
   margin-bottom: 25px;
   margin-top: 25px;
+  outline: none;
   width: 50%;
 }
 
@@ -139,6 +141,7 @@ hr {
 }
 
 @media screen and (max-width: 800px) {
+
   .new-ideas-entry,
   #idea-output,
   #search-input {
@@ -147,6 +150,7 @@ hr {
 }
 
 @media screen and (max-width: 500px) {
+
   .new-ideas-entry,
   #idea-output,
   #search-input {
