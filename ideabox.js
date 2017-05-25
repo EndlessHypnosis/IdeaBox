@@ -4,6 +4,8 @@ var bodyInput = $('#body-input');
 var saveButton = $('#save-button');
 var ideaOutput = $('#idea-output');
 var heading = $('#heading1');
+var searchField = $('#search-input');
+
 
 //Create new array for ideas storing
 var ideasArray = [];
@@ -16,11 +18,11 @@ $(document).ready(function() {
   if (ideasJson) {
     var parsedIdeas = JSON.parse(ideasJson); //This is our array
     parsedIdeas.forEach(function(idea) {
-      var ideaToPrepend = ideaBuilder(idea);
-      ideaOutput.prepend(ideaToPrepend);
-    })
-    ideasArray = parsedIdeas;
-  }
+    var ideaToPrepend = ideaBuilder(idea);
+    ideaOutput.prepend(ideaToPrepend);
+  })
+  ideasArray = parsedIdeas;
+}
 
   // welcome message
   var introMessage;
@@ -38,8 +40,9 @@ $(document).ready(function() {
   });
 });
 
-// one global event handler for save button
+//global event handlers
 saveButton.on('click', saveIdea);
+searchField.on('input', search);
 
 // Constructor function (blueprint) for our idea
 function Idea(title, body) {
@@ -59,7 +62,6 @@ function storeArray() {
 function saveIdea() {
   //make sure both boxes have some input
   if (titleInput.val().length > 0 && bodyInput.val().length > 0) {
-
     // create the idea
     var newIdea = new Idea(titleInput.val(), bodyInput.val());
     // add it to the array
@@ -69,11 +71,9 @@ function saveIdea() {
     // add new idea to DOM
     var ideaToPrepend = ideaBuilder(newIdea);
     ideaOutput.prepend(ideaToPrepend);
-
     // clear inputs
     titleInput.val('');
     bodyInput.val('');
-
   } else {
     // invalid input
     heading.notify('Please enter something to save first', {
@@ -84,7 +84,6 @@ function saveIdea() {
       autoHideDelay: 4000
     });
   }
-
 }
 
 // build a new article element, add all child html, and wire up related event listeners
@@ -106,13 +105,11 @@ function ideaBuilder(ideaToBuild) {
   $(upvoteElement).on('click', function() {
     upVote(upvoteElement);
   });
-
   // click event listener for downvote button
   var downvoteElement = newArticle.querySelector('.downvote-icon');
   $(downvoteElement).on('click', function() {
     downVote(downvoteElement);
   });
-
   // click event listener for delete button
   var deleteElement = newArticle.querySelector('.idea-delete-icon');
   $(deleteElement).on('click', function() {
@@ -194,7 +191,6 @@ function convertToInput(readOnly, editable) {
     .focus();
 }
 
-
 // event listener for upvote button
 function upVote(upVoteButton) {
   var articleId = upVoteButton.closest('article').id;
@@ -220,7 +216,7 @@ function upVote(upVoteButton) {
   })
 
   storeArray();
-  $(upVoteButton).siblings().find('.quality-classification').text(newQuality); //it's fixed
+  $(upVoteButton).siblings().find('.quality-classification').text(newQuality);
 }
 
 // event listener for downvote button
@@ -247,7 +243,7 @@ function downVote(downVoteButton) {
     }
   })
   storeArray();
-  $(downVoteButton).siblings().find('.quality-classification').text(newQuality); //it's fixed
+  $(downVoteButton).siblings().find('.quality-classification').text(newQuality);
 }
 
 // event listener for delete button
@@ -263,15 +259,27 @@ function deleteButton(deleteButton) {
   storeArray();
 }
 
+function search() {
+  var userSearch =  searchField.val();
+  var searchResultsArray = ideasArray.filter(function(idea){
+    var arrayTitle = idea.title;
+    var arrayBody = idea.body;
+    if (arrayTitle.indexOf(userSearch) !== -1) {
+      return true;
+    }
+    if (arrayBody.indexOf(userSearch) !== -1) {
+      return true;
+    }
+  })
+  if (searchResultsArray.length > 0) {
+    fillSearchResults(searchResultsArray);
+  }
+}
 
-
-// function search(button) {
-// var articleId = button.closest('article').id;
-//   var filteredArray = ideasArray.filter(function(idea){
-//     console.log(idea.id, articleId);
-//     return idea.id == articleId;
-//   })
-//   filteredArray[0].quality++;
-//   console.log(filteredArray);
-//
-// }
+function fillSearchResults(searchResults) {
+  ideaOutput.empty();
+  searchResults.forEach(function(idea) {
+    var ideaToPrepend = ideaBuilder(idea);
+    ideaOutput.prepend(ideaToPrepend);
+  })
+}

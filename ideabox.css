@@ -24,6 +24,7 @@ body, html, section, main, div, aside {
 
 h1 {
   color: #00A79D;
+  font-size: 40px;
   margin-bottom: 50px;
 }
 
@@ -34,8 +35,8 @@ h1 span, .idea-heading, .quality-rating {
 input[type="text"]{
   border: 2px solid #b7b9bb;
   margin-bottom: 15px;
-  width: 100%;
   padding: 5px;
+  width: 100%;
 }
 
 input[type="text"]::placeholder {
@@ -43,8 +44,8 @@ input[type="text"]::placeholder {
 }
 
 #save-button {
-  border: none;
   background-color: #00A79D;
+  border: none;
   color: #FFFFFF;
   margin-bottom: 20px;
   width: 100%;
@@ -67,9 +68,10 @@ input[type="text"]::placeholder {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
+  width: 100%;
 }
 
-.idea-cards {
+#idea-output {
   width: 50%;
 }
 
@@ -81,15 +83,15 @@ input[type="text"]::placeholder {
 
 .idea-heading {
   display: inline-block;
-  margin-top: 15px;
   float: left;
+  margin-top: 15px;
 }
 
 .idea-delete-icon {
+  cursor: pointer;
   display: inline-block;
   float: right;
-  margin-top: 15px;
-  cursor: pointer;
+  margin-top: 22px;
 }
 
 .idea-delete-icon:hover {
@@ -103,8 +105,8 @@ input[type="text"]::placeholder {
 }
 
 .upvote-icon {
-  margin-right: 15px;
   cursor: pointer;
+  margin-right: 15px;
 }
 
 .upvote-icon:hover {
@@ -112,8 +114,8 @@ input[type="text"]::placeholder {
 }
 
 .downvote-icon {
-  margin-right: 15px;
   cursor: pointer;
+  margin-right: 15px;
 }
 
 .downvote-icon:hover {
@@ -134,4 +136,20 @@ input[type="text"]::placeholder {
 
 hr {
   color: #D1D3D4;
+}
+
+@media screen and (max-width: 800px) {
+  .new-ideas-entry,
+  #idea-output,
+  #search-input {
+    width: 65%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .new-ideas-entry,
+  #idea-output,
+  #search-input {
+    width: 80%;
+  }
 }
