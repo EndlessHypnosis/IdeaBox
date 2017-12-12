@@ -9,17 +9,17 @@ var searchField = $('#search-input');
 //Create new array for ideas storing
 var ideasArray = [];
 // Initialize
-$(document).ready(function() {
+$(document).ready(function () {
   // pull array out of local storage, populate DOM
   var ideasJson = localStorage.getItem('ideas');
   if (ideasJson) {
     var parsedIdeas = JSON.parse(ideasJson); //This is our array
-    parsedIdeas.forEach(function(idea) {
-    var ideaToPrepend = ideaBuilder(idea);
-    ideaOutput.prepend(ideaToPrepend);
-  })
-  ideasArray = parsedIdeas;
-}
+    parsedIdeas.forEach(function (idea) {
+      var ideaToPrepend = ideaBuilder(idea);
+      ideaOutput.prepend(ideaToPrepend);
+    })
+    ideasArray = parsedIdeas;
+  }
 
   // welcome message
   var introMessage;
@@ -99,32 +99,32 @@ function ideaBuilder(ideaToBuild) {
 
   // click event listener for upvote button
   var upvoteElement = newArticle.querySelector('.upvote-icon');
-  $(upvoteElement).on('click', function() {
+  $(upvoteElement).on('click', function () {
     upVote(upvoteElement);
   });
   // click event listener for downvote button
   var downvoteElement = newArticle.querySelector('.downvote-icon');
-  $(downvoteElement).on('click', function() {
+  $(downvoteElement).on('click', function () {
     downVote(downvoteElement);
   });
   // click event listener for delete button
   var deleteElement = newArticle.querySelector('.idea-delete-icon');
-  $(deleteElement).on('click', function() {
+  $(deleteElement).on('click', function () {
     deleteButton(deleteElement);
   });
 
   // START BLOCK[BODY]: handles swapping out a textbox for inplace editing
   var ideaBodyElement = newArticle.querySelector('.idea-body');
   var ideaBodyInputElement = newArticle.querySelector('.idea-body-input');
-  $(ideaBodyElement).on('click', function() {
+  $(ideaBodyElement).on('click', function () {
     convertToInput($(ideaBodyElement), $(ideaBodyInputElement));
   });
   // blur is when the textbox loses focus
-  $(ideaBodyInputElement).on('blur', function() {
+  $(ideaBodyInputElement).on('blur', function () {
     blurMe(ideaBodyElement, ideaBodyInputElement, "body");
   });
   // this detects when the enter key is pressed
-  $(ideaBodyInputElement).on('input keydown', function(event) {
+  $(ideaBodyInputElement).on('input keydown', function (event) {
     if (event.keyCode == 13) {
       blurMe($(ideaBodyElement), $(ideaBodyInputElement), "body");
     }
@@ -134,15 +134,15 @@ function ideaBuilder(ideaToBuild) {
   // START BLOCK[TITLE]: handles the swapping of textbox for inplace editing
   var ideaTitleElement = newArticle.querySelector('.idea-heading');
   var ideaTitleInputElement = newArticle.querySelector('.idea-heading-input');
-  $(ideaTitleElement).on('click', function() {
+  $(ideaTitleElement).on('click', function () {
     convertToInput($(ideaTitleElement), $(ideaTitleInputElement));
   });
   // blur is when the textbox loses focus
-  $(ideaTitleInputElement).on('blur', function() {
+  $(ideaTitleInputElement).on('blur', function () {
     blurMe(ideaTitleElement, ideaTitleInputElement, "title");
   });
   // this detects when the enter key is pressed
-  $(ideaTitleInputElement).on('input keydown', function(event) {
+  $(ideaTitleInputElement).on('input keydown', function (event) {
     if (event.keyCode == 13) {
       blurMe($(ideaTitleElement), $(ideaTitleInputElement), "title");
     }
@@ -152,7 +152,7 @@ function ideaBuilder(ideaToBuild) {
   // finally, we want this function to return this <article> tag we made
   return newArticle;
 }
-  // when the user hits enter or selects off the input this is ran
+// when the user hits enter or selects off the input this is ran
 function blurMe(readOnly, editable, target) {
   // toggle the elemnts display and make sure to copy the value back from the input
   var newValue = $(editable).val();
@@ -163,7 +163,7 @@ function blurMe(readOnly, editable, target) {
 
   // find the related idea and save the new text
   var articleId = editable.closest('article').id;
-  ideasArray.forEach(function(idea) {
+  ideasArray.forEach(function (idea) {
     if (articleId == idea.id) {
       if (target === "body") {
         idea.body = newValue;
@@ -190,7 +190,7 @@ function convertToInput(readOnly, editable) {
 function upVote(upVoteButton) {
   var articleId = upVoteButton.closest('article').id;
   var newQuality;
-  ideasArray.forEach(function(idea) {
+  ideasArray.forEach(function (idea) {
     if (idea.id == articleId) {
       if (idea.quality === "Swill") {
         idea.quality = "Plausible";
@@ -218,7 +218,7 @@ function upVote(upVoteButton) {
 function downVote(downVoteButton) {
   var articleId = downVoteButton.closest('article').id;
   var newQuality;
-  ideasArray.forEach(function(idea) {
+  ideasArray.forEach(function (idea) {
     if (idea.id == articleId) {
       if (idea.quality === "Genius") {
         idea.quality = "Plausible";
@@ -244,7 +244,7 @@ function downVote(downVoteButton) {
 // event listener for delete button
 function deleteButton(deleteButton) {
   var articleId = deleteButton.closest('article').id;
-  ideasArray.forEach(function(idea, index) {
+  ideasArray.forEach(function (idea, index) {
     if (idea.id == articleId) {
       var article = document.getElementById(articleId);
       $(article).remove();
@@ -255,8 +255,8 @@ function deleteButton(deleteButton) {
 }
 
 function search() {
-  var userSearch =  searchField.val();
-  var searchResultsArray = ideasArray.filter(function(idea){
+  var userSearch = searchField.val();
+  var searchResultsArray = ideasArray.filter(function (idea) {
     var arrayTitle = idea.title;
     var arrayBody = idea.body;
     if (arrayTitle.indexOf(userSearch) !== -1) {
@@ -273,7 +273,7 @@ function search() {
 
 function fillSearchResults(searchResults) {
   ideaOutput.empty();
-  searchResults.forEach(function(idea) {
+  searchResults.forEach(function (idea) {
     var ideaToPrepend = ideaBuilder(idea);
     ideaOutput.prepend(ideaToPrepend);
   })
